@@ -1,3 +1,3 @@
 # Atlas
 
-An AI itinenary planner
+An AI itinerary planner
