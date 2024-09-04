@@ -1,10 +1,12 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { NgxPlaceholderComponent } from 'ngx-placeholder';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-prompt-window',
   standalone: true,
-  imports: [NgxPlaceholderComponent],
+  imports: [MatInputModule, MatButtonModule, MatIconModule],
   templateUrl: './prompt-window.component.html',
   styleUrl: './prompt-window.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

@@ -1,8 +1,24 @@
-<div style="width: 400px">
-  <ngx-placeholder
-    type="text"
-    phrase="prompt"
-    width="100%"
-    height="100%"
-  ></ngx-placeholder>
+<div style="display: flex; flex-direction: column; width: 400px">
+  <div
+    style="flex-grow: 1; border: 1px solid black; margin: 10px; padding: 7px"
+  >
+    Lorem ipsum dolor sit amet consectetur, adipisicing elit. In, repellat! Quia
+    ratione quo, obcaecati unde assumenda quisquam officia sit perferendis,
+    necessitatibus, omnis laboriosam!
+  </div>
+  <div style="margin: 10px">
+    <form style="display: contents">
+      <mat-form-field style="width: 100%">
+        <!-- <mat-label>Favorite food</mat-label> -->
+        <textarea
+          matInput
+          placeholder="Prepare a travel itinerary from xyz to xyz"
+          rows="6"
+        ></textarea>
+      </mat-form-field>
+      <button style="width: 100%" mat-flat-button>
+        Run<mat-icon iconPositionEnd>search</mat-icon>
+      </button>
+    </form>
+  </div>
 </div>
