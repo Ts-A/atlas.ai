@@ -3,9 +3,13 @@
 }
 
 .footer {
-  padding: 10px 0;
+  padding: 7px 0;
   display: flex;
   justify-content: center;
-  background-color: #001a23;
+  background-color: #7a9e7e;
   color: #e8f1f2;
+}
+
+mat-divider {
+  margin: 5px;
 }
