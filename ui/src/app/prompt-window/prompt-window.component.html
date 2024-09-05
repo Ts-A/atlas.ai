@@ -1,13 +1,15 @@
 <div class="p-container">
   <div class="header">Atlas AI</div>
-  <app-window></app-window>
+  <app-window [chats]="chats"></app-window>
   <div style="margin: 10px">
-    <form style="display: contents">
+    <form style="display: contents" (submit)="handleFormSubmit($event)">
       <mat-form-field style="width: 100%">
         <textarea
           matInput
           placeholder="Prepare a travel itinerary from xyz to xyz"
           rows="4"
+          [(ngModel)]="prompt"
+          name="prompt"
         ></textarea>
       </mat-form-field>
       <button style="width: 100%" mat-flat-button>Run</button>
