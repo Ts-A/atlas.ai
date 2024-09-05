@@ -1,17 +1,52 @@
 import { Injectable } from '@angular/core';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import {
+  GenerativeModel,
+  GoogleGenerativeAI,
+  SchemaType,
+} from '@google/generative-ai';
 import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GenerativeAiService {
-  constructor() {}
+  public genAI: GoogleGenerativeAI | undefined;
+  public model: GenerativeModel | undefined;
+  public jsonModel: GenerativeModel | undefined;
+  public jsonContext: string =
+    'You are an AI travel assistant. Plan the trip the user requests delimited by =. Always return the output in json format with the keys name, description, latitude and longitude of the place. A small description explaining the trip plan';
+
+  constructor() {
+    this.genAI = new GoogleGenerativeAI(environment.GEMINI_API_KEY);
+    this.model = this.genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    this.jsonModel = this.genAI.getGenerativeModel({
+      model: 'gemini-1.5-flash',
+      generationConfig: {
+        responseMimeType: 'application/json',
+      },
+    });
+  }
 
   public async generateContent(prompt: string) {
-    const genAI = new GoogleGenerativeAI(environment.GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
-    const result = await model.generateContent(prompt);
+    if (!this.model || !this.jsonModel) throw new Error('Model not found');
+    const jsonResponse = await this.generateJSON(prompt);
+    const result = await this.model.generateContent(
+      'Use the json and summarise the trip in under 40 words using html tags' +
+        jsonResponse
+    );
+
+    console.log(result.response.text());
+
+    return { chatResponse: result.response.text(), jsonResponse };
+  }
+
+  public async generateJSON(prompt: string) {
+    if (!this.jsonModel) throw new Error('Model not found');
+    const result = await this.jsonModel.generateContent(
+      this.jsonContext + '=' + prompt + '='
+    );
+
+    console.log(result.response.text());
 
     return result.response.text();
   }

@@ -3,8 +3,6 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { GoogleGenerativeAI } from '@google/generative-ai';
-import { environment } from '../../environments/environment';
 import { GenerativeAiService } from './generative.ai.service';
 import { WindowComponent } from './window/window.component';
 
@@ -26,12 +24,7 @@ export class PromptWindowComponent {
   public chats: any[] = [
     {
       id: 1,
-      text: 'prepare a 4 day travel trip in manali. cover as much as places possible',
-      sender: 'user',
-    },
-    {
-      id: 2,
-      text: 'ok, here is the list. first travel from xyz then to yzx. first travel from xyz then to yzx. first travel from xyz then to yzx. first travel from xyz then to yzx.',
+      text: "Welcome to atlas.ai! I'm your personal AI travel assistant. How can I help you plan your next travel destination?",
       sender: 'ai',
     },
   ];
