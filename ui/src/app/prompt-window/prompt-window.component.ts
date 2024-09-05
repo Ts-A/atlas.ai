@@ -41,6 +41,46 @@ export class PromptWindowComponent {
       text: 'ok, here is the list. first travel from xyz then to yzx. first travel from xyz then to yzx. first travel from xyz then to yzx. first travel from xyz then to yzx.',
       sender: 'ai',
     },
+    {
+      id: 1,
+      text: 'prepare a 4 day travel trip in manali. cover as much as places possible',
+      sender: 'user',
+    },
+    {
+      id: 2,
+      text: 'ok, here is the list. first travel from xyz then to yzx. first travel from xyz then to yzx. first travel from xyz then to yzx. first travel from xyz then to yzx.',
+      sender: 'ai',
+    },
+    {
+      id: 1,
+      text: 'prepare a 4 day travel trip in manali. cover as much as places possible',
+      sender: 'user',
+    },
+    {
+      id: 2,
+      text: 'ok, here is the list. first travel from xyz then to yzx. first travel from xyz then to yzx. first travel from xyz then to yzx. first travel from xyz then to yzx.',
+      sender: 'ai',
+    },
+    {
+      id: 1,
+      text: 'prepare a 4 day travel trip in manali. cover as much as places possible',
+      sender: 'user',
+    },
+    {
+      id: 2,
+      text: 'ok, here is the list. first travel from xyz then to yzx. first travel from xyz then to yzx. first travel from xyz then to yzx. first travel from xyz then to yzx.',
+      sender: 'ai',
+    },
+    {
+      id: 1,
+      text: 'prepare a 4 day travel trip in manali. cover as much as places possible',
+      sender: 'user',
+    },
+    {
+      id: 2,
+      text: 'ok, here is the list. first travel from xyz then to yzx. first travel from xyz then to yzx. first travel from xyz then to yzx. first travel from xyz then to yzx.',
+      sender: 'ai',
+    },
   ];
   public prompt: string = '';
 
