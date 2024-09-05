@@ -1,3 +1,16 @@
 :host {
   display: contents;
 }
+
+.p-container {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+}
+
+.p-container .header {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 25px;
+  font-weight: bold;
+}
