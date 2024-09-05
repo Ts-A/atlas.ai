@@ -1,0 +1,35 @@
+:host {
+  display: contents;
+}
+
+.window {
+  border: 1px solid black;
+  margin: 10px;
+  padding: 7px;
+  font-size: 14px;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.window > div > div {
+  display: flex;
+  margin: 15px 0;
+}
+
+.sender-ai {
+  flex-direction: row;
+}
+
+.sender-user {
+  flex-direction: row-reverse;
+}
+
+.sender-ai span {
+  margin-right: 4px;
+  align-self: center;
+}
+
+.sender-user span {
+  margin-left: 4px;
+  align-self: center;
+}

@@ -1,3 +1,11 @@
 :host {
   display: contents;
 }
+
+.map-container {
+  flex-grow: 1;
+}
+
+div[leaflet] {
+  height: 100%;
+}

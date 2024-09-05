@@ -1,3 +1,17 @@
 :host {
   display: contents;
 }
+
+.p-container {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: calc(100vh - 50px); // remove footer height
+}
+
+.p-container .header {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 25px;
+  font-weight: bold;
+}
