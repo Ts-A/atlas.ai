@@ -59,7 +59,8 @@ export class MapContainerComponent {
         title: item.name,
       });
     });
-    this.layers.splice(0, this.layers.length);
+    console.log(markers);
+    this.layers.splice(0, this.layers.length); // to avoid ng expression error
     this.layers.push(...markers);
   }
 }

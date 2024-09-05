@@ -14,7 +14,7 @@ export class GenerativeAiService {
   public model: GenerativeModel | undefined;
   public jsonModel: GenerativeModel | undefined;
   public jsonContext: string =
-    'You are an AI travel assistant. Plan the trip the user requests delimited by =. Always return the output in json format with the keys name, description, latitude and longitude of the place. A small description explaining the trip plan';
+    'You are an AI travel assistant. Plan the trip the user requests delimited by =. Always return the output in json format as tripPlan with the keys name, description, latitude and longitude of the place. A small description explaining the trip plan';
 
   constructor() {
     this.genAI = new GoogleGenerativeAI(environment.GEMINI_API_KEY);
@@ -27,27 +27,31 @@ export class GenerativeAiService {
     });
   }
 
-  public async generateContent(prompt: string) {
-    if (!this.model || !this.jsonModel) throw new Error('Model not found');
-    const jsonResponse = await this.generateJSON(prompt);
+  public async generateContent(jsonContent: any) {
+    if (!this.model) throw new Error('Model not found');
     const result = await this.model.generateContent(
       'Use the json and summarise the trip in under 40 words using html tags' +
-        jsonResponse
-    );
-
-    console.log(result.response.text());
-
-    return { chatResponse: result.response.text(), jsonResponse };
-  }
-
-  public async generateJSON(prompt: string) {
-    if (!this.jsonModel) throw new Error('Model not found');
-    const result = await this.jsonModel.generateContent(
-      this.jsonContext + '=' + prompt + '='
+        jsonContent
     );
 
     console.log(result.response.text());
 
     return result.response.text();
+  }
+
+  public async generateJSON(prompt: string) {
+    try {
+      if (!this.jsonModel) throw new Error('Model not found');
+      const result = await this.jsonModel.generateContent(
+        this.jsonContext + '=' + prompt + '='
+      );
+
+      const jsonResponse = result.response.text();
+      console.log(jsonResponse);
+      return jsonResponse;
+    } catch (error) {
+      console.log(error);
+      return '';
+    }
   }
 }

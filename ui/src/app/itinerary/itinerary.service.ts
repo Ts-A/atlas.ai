@@ -11,8 +11,6 @@ export class ItineraryService {
       longitude: 73.8567,
       name: 'Pune',
       description: 'Start your journey from Pune.',
-      startDay: 1,
-      endDay: 1,
     },
     {
       latitude: 31.634,
@@ -20,8 +18,6 @@ export class ItineraryService {
       name: 'Manali',
       description:
         'Reach Manali, explore the charming town and enjoy the scenic beauty of the Himalayas.',
-      startDay: 2,
-      endDay: 5,
     },
     {
       latitude: 31.64,
@@ -29,8 +25,6 @@ export class ItineraryService {
       name: 'Hidimba Devi Temple',
       description:
         'Visit this ancient temple dedicated to Hidimba Devi, wife of Bhima from the Hindu epic Mahabharata.',
-      startDay: 2,
-      endDay: 2,
     },
     {
       latitude: 31.636,
@@ -38,8 +32,6 @@ export class ItineraryService {
       name: 'Vashisht Hot Springs',
       description:
         'Relax and rejuvenate in the natural hot springs of Vashisht.',
-      startDay: 2,
-      endDay: 2,
     },
     {
       latitude: 31.641,
@@ -47,8 +39,6 @@ export class ItineraryService {
       name: 'Club House',
       description:
         'Enjoy the breathtaking views of the mountains from the Club House.',
-      startDay: 3,
-      endDay: 3,
     },
     {
       latitude: 31.761,
@@ -56,8 +46,6 @@ export class ItineraryService {
       name: 'Solang Valley',
       description:
         'Experience adventure activities like paragliding, zorbing, and skiing in Solang Valley.',
-      startDay: 3,
-      endDay: 3,
     },
     {
       latitude: 31.819,
@@ -65,8 +53,6 @@ export class ItineraryService {
       name: 'Rohtang Pass',
       description:
         'Embark on a scenic drive to the Rohtang Pass, a high mountain pass offering stunning panoramic views.',
-      startDay: 4,
-      endDay: 4,
     },
     {
       latitude: 31.633,
@@ -74,8 +60,6 @@ export class ItineraryService {
       name: 'Old Manali',
       description:
         'Explore the charming and traditional village of Old Manali, known for its peaceful ambiance.',
-      startDay: 4,
-      endDay: 4,
     },
     {
       latitude: 31.636,
@@ -83,16 +67,12 @@ export class ItineraryService {
       name: 'Beas River',
       description:
         'Enjoy a leisurely stroll along the banks of the Beas River, taking in the scenic beauty.',
-      startDay: 5,
-      endDay: 5,
     },
     {
       latitude: 18.5204,
       longitude: 73.8567,
       name: 'Pune',
       description: 'Depart from Manali and return to Pune.',
-      startDay: 5,
-      endDay: 5,
     },
   ];
   public itrSubject: BehaviorSubject<any> = new BehaviorSubject<any>(
@@ -102,6 +82,7 @@ export class ItineraryService {
   constructor() {}
 
   public updateItinerary(itinerary: any[]) {
+    console.log(itinerary);
     this.itinerary = itinerary;
     this.itrSubject.next(this.itinerary);
   }

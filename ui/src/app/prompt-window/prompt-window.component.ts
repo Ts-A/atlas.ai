@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { ItineraryService } from '../itinerary/itinerary.service';
 import { GenerativeAiService } from './generative.ai.service';
 import { WindowComponent } from './window/window.component';
 
@@ -30,7 +31,10 @@ export class PromptWindowComponent {
   ];
   public prompt: string = '';
 
-  constructor(public genAIService: GenerativeAiService) {}
+  constructor(
+    public genAIService: GenerativeAiService,
+    public itinerarySvc: ItineraryService
+  ) {}
 
   public async handleFormSubmit(event: any) {
     event.preventDefault();
@@ -42,13 +46,28 @@ export class PromptWindowComponent {
     };
     this.chats.push(userPrompt);
 
-    const aiResponse = await this.genAIService.generateContent(this.prompt);
+    const aiResponse = await this.genAIService.generateJSON(this.prompt);
+
+    const jsonResponse = JSON.parse(aiResponse);
+
+    const jsonKeys = Object.keys(jsonResponse);
+    if (jsonKeys.includes('tripPlan'))
+      this.itinerarySvc.updateItinerary(jsonResponse['tripPlan']);
+
+    let aiSummary = '';
+
+    if (!jsonKeys.includes('description')) {
+      aiSummary = await this.genAIService.generateContent(aiResponse);
+    } else {
+      aiSummary = jsonResponse['description'];
+    }
 
     this.chats.push({
       id: this.chats.length,
-      text: aiResponse,
+      text: aiSummary,
       sender: 'ai',
     });
+
     this.prompt = '';
   }
 }
