@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ItineraryService } from '../itinerary/itinerary.service';
+import { ProgressService } from '../shared/services/progress/progress.service';
 import { GenerativeAiService } from './generative.ai.service';
 import { WindowComponent } from './window/window.component';
 
@@ -33,12 +34,14 @@ export class PromptWindowComponent {
 
   constructor(
     public genAIService: GenerativeAiService,
-    public itinerarySvc: ItineraryService
+    public itinerarySvc: ItineraryService,
+    public progressSvc: ProgressService
   ) {}
 
   public async handleFormSubmit(event: any) {
     event.preventDefault();
     if (this.prompt === '') return;
+    this.progressSvc.start();
     const userPrompt = {
       id: this.chats.length,
       text: this.prompt,
@@ -68,5 +71,6 @@ export class PromptWindowComponent {
       text: aiSummary,
       sender: 'ai',
     });
+    this.progressSvc.stop();
   }
 }

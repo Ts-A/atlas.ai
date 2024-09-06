@@ -1,5 +1,20 @@
-<main style="display: flex; flex-direction: row">
+<main style="display: flex; flex-direction: row; z-index: 1">
   <app-prompt-window></app-prompt-window>
   <app-map-container></app-map-container>
 </main>
 <app-footer></app-footer>
+<ng-container *ngIf="loading">
+  <div
+    style="
+      background-color: black;
+      opacity: 0.4;
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      z-index: 15;
+    "
+  ></div>
+  <div style="position: absolute; top: 40%; left: 45%; z-index: 20">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
+</ng-container>
