@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class ProgressService {
-  public loading: Boolean = false;
+  public loading: Boolean = true;
   public loadSubject: BehaviorSubject<Boolean> = new BehaviorSubject<Boolean>(
     this.loading
   );

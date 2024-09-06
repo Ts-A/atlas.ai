@@ -7,6 +7,9 @@
   flex-direction: column;
   width: 400px;
   height: calc(100vh - 50px); // remove footer height
+  background-color: #aad3df;
+  color: #001a23;
+  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 }
 
 .p-container .header {
@@ -14,4 +17,5 @@
   margin-top: 10px;
   font-size: 25px;
   font-weight: bold;
+  color: rgba(0, 26, 35, 1);
 }
