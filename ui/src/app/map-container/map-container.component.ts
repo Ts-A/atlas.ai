@@ -3,6 +3,7 @@ import { LeafletModule } from '@bluehalo/ngx-leaflet';
 import {
   Icon,
   icon,
+  LatLng,
   latLng,
   Layer,
   Map,
@@ -23,18 +24,20 @@ import { ItineraryService } from '../itinerary/itinerary.service';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class MapContainerComponent {
+  public mapZoom: number = 5;
+  public mapCenter: LatLng = latLng([21.248422235627014, 77.56347656250001]);
   public mapOptions: MapOptions = {
     layers: [
       tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 18,
+        minZoom: 4,
       }),
     ],
-    zoom: 5,
-    center: latLng(21.248422235627014, 77.56347656250001),
   };
   public itinerary: any[] = [];
   public layers: Layer[] = [];
   public itrSubscription: Subscription | undefined;
+  public initialLoad: boolean = true;
 
   constructor(public itinerarySvc: ItineraryService) {}
 
@@ -42,7 +45,8 @@ export class MapContainerComponent {
     this.itrSubscription = this.itinerarySvc.itrSubject.subscribe(
       (itr: any) => {
         this.itinerary = itr;
-        this.updateMap();
+        if (!this.initialLoad) this.updateMap();
+        this.initialLoad = false;
       }
     );
   }
@@ -59,8 +63,9 @@ export class MapContainerComponent {
         title: item.name,
       });
     });
-    console.log(markers);
     this.layers.splice(0, this.layers.length); // to avoid ng expression error
     this.layers.push(...markers);
+    this.mapZoom = 8;
+    this.mapCenter = latLng(markers[0].getLatLng());
   }
 }
