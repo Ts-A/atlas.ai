@@ -3,6 +3,9 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { ItineraryService } from '../itinerary/itinerary.service';
+import { ProgressService } from '../shared/services/progress/progress.service';
+import { GenerativeAiService } from './generative.ai.service';
 import { WindowComponent } from './window/window.component';
 
 @Component({
@@ -23,82 +26,51 @@ export class PromptWindowComponent {
   public chats: any[] = [
     {
       id: 1,
-      text: 'prepare a 4 day travel trip in manali. cover as much as places possible',
-      sender: 'user',
-    },
-    {
-      id: 2,
-      text: 'ok, here is the list. first travel from xyz then to yzx. first travel from xyz then to yzx. first travel from xyz then to yzx. first travel from xyz then to yzx.',
-      sender: 'ai',
-    },
-    {
-      id: 1,
-      text: 'prepare a 4 day travel trip in manali. cover as much as places possible',
-      sender: 'user',
-    },
-    {
-      id: 2,
-      text: 'ok, here is the list. first travel from xyz then to yzx. first travel from xyz then to yzx. first travel from xyz then to yzx. first travel from xyz then to yzx.',
-      sender: 'ai',
-    },
-    {
-      id: 1,
-      text: 'prepare a 4 day travel trip in manali. cover as much as places possible',
-      sender: 'user',
-    },
-    {
-      id: 2,
-      text: 'ok, here is the list. first travel from xyz then to yzx. first travel from xyz then to yzx. first travel from xyz then to yzx. first travel from xyz then to yzx.',
-      sender: 'ai',
-    },
-    {
-      id: 1,
-      text: 'prepare a 4 day travel trip in manali. cover as much as places possible',
-      sender: 'user',
-    },
-    {
-      id: 2,
-      text: 'ok, here is the list. first travel from xyz then to yzx. first travel from xyz then to yzx. first travel from xyz then to yzx. first travel from xyz then to yzx.',
-      sender: 'ai',
-    },
-    {
-      id: 1,
-      text: 'prepare a 4 day travel trip in manali. cover as much as places possible',
-      sender: 'user',
-    },
-    {
-      id: 2,
-      text: 'ok, here is the list. first travel from xyz then to yzx. first travel from xyz then to yzx. first travel from xyz then to yzx. first travel from xyz then to yzx.',
-      sender: 'ai',
-    },
-    {
-      id: 1,
-      text: 'prepare a 4 day travel trip in manali. cover as much as places possible',
-      sender: 'user',
-    },
-    {
-      id: 2,
-      text: 'ok, here is the list. first travel from xyz then to yzx. first travel from xyz then to yzx. first travel from xyz then to yzx. first travel from xyz then to yzx.',
+      text: "Welcome to atlas.ai! I'm your personal AI travel assistant. How can I help you plan your next travel destination?",
       sender: 'ai',
     },
   ];
   public prompt: string = '';
 
-  public handleFormSubmit(event: any) {
+  constructor(
+    public genAIService: GenerativeAiService,
+    public itinerarySvc: ItineraryService,
+    public progressSvc: ProgressService
+  ) {}
+
+  public async handleFormSubmit(event: any) {
     event.preventDefault();
-    console.log(this.prompt);
+    if (this.prompt === '') return;
+    this.progressSvc.start();
     const userPrompt = {
       id: this.chats.length,
       text: this.prompt,
       sender: 'user',
     };
-    this.chats.push(userPrompt);
-    const aiPrompt = {
-      id: this.chats.length,
-      text: 'working on it',
-      sender: 'ai',
-    };
-    this.chats.push(aiPrompt);
     this.prompt = '';
+    this.chats.push(userPrompt);
+
+    const aiResponse = await this.genAIService.generateJSON(userPrompt.text);
+
+    const jsonResponse = JSON.parse(aiResponse);
+
+    const jsonKeys = Object.keys(jsonResponse);
+    if (jsonKeys.includes('tripPlan'))
+      this.itinerarySvc.updateItinerary(jsonResponse['tripPlan']);
+
+    let aiSummary = '';
+
+    if (!jsonKeys.includes('description')) {
+      aiSummary = await this.genAIService.generateContent(aiResponse);
+    } else {
+      aiSummary = jsonResponse['description'];
+    }
+
+    this.chats.push({
+      id: this.chats.length,
+      text: aiSummary,
+      sender: 'ai',
+    });
+    this.progressSvc.stop();
   }
 }
