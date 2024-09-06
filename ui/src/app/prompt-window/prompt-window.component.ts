@@ -44,9 +44,10 @@ export class PromptWindowComponent {
       text: this.prompt,
       sender: 'user',
     };
+    this.prompt = '';
     this.chats.push(userPrompt);
 
-    const aiResponse = await this.genAIService.generateJSON(this.prompt);
+    const aiResponse = await this.genAIService.generateJSON(userPrompt.text);
 
     const jsonResponse = JSON.parse(aiResponse);
 
@@ -67,7 +68,5 @@ export class PromptWindowComponent {
       text: aiSummary,
       sender: 'ai',
     });
-
-    this.prompt = '';
   }
 }

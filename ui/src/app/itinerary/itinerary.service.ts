@@ -13,7 +13,6 @@ export class ItineraryService {
   constructor() {}
 
   public updateItinerary(itinerary: any[]) {
-    console.log(itinerary);
     this.itinerary = itinerary;
     this.itrSubject.next(this.itinerary);
   }

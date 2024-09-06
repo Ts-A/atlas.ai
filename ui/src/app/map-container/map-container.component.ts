@@ -25,7 +25,6 @@ import { ItineraryService } from '../itinerary/itinerary.service';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class MapContainerComponent {
-  public map: Map | undefined;
   public mapZoom: number = 5;
   public mapCenter: LatLng = latLng([21.248422235627014, 77.56347656250001]);
   public mapOptions: MapOptions = {
@@ -44,7 +43,6 @@ export class MapContainerComponent {
   constructor(public itinerarySvc: ItineraryService) {}
 
   public onMapReady(map: Map) {
-    this.map = map;
     this.itrSubscription = this.itinerarySvc.itrSubject.subscribe(
       (itr: any) => {
         this.itinerary = itr;
@@ -68,6 +66,7 @@ export class MapContainerComponent {
         `<div style="text-align: center; font-weight: bold;">${item.name}</div><div>${item.description}</div>`
       );
     });
+    this.layers.splice(0, this.layers.length); // to avoid ng expression error
     this.layers.push(...markers);
     this.mapZoom = 8;
     this.mapCenter = latLng(markers[0].getLatLng());

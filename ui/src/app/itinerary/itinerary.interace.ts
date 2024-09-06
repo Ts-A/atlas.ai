@@ -3,4 +3,5 @@ export interface Itinerary {
   description: string;
   latitude: number;
   longitude: number;
+  imageUrl?: string;
 }

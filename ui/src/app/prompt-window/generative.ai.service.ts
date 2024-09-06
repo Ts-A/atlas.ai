@@ -14,7 +14,7 @@ export class GenerativeAiService {
   public model: GenerativeModel | undefined;
   public jsonModel: GenerativeModel | undefined;
   public jsonContext: string =
-    'You are an AI travel assistant. Plan the trip the user requests delimited by =. Always return the output in json format as tripPlan with the keys name, description, latitude and longitude of the place. A small description explaining the trip plan';
+    'You are an AI travel assistant. Plan the trip the user requests delimited by =. Always return the output in json format as tripPlan with the keys name, description, imageUrl, latitude and longitude of the place';
 
   constructor() {
     this.genAI = new GoogleGenerativeAI(environment.GEMINI_API_KEY);
