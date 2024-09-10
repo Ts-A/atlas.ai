@@ -3,7 +3,7 @@ import google.generativeai as genai
 
 app = Flask(__name__)
 
-GOOGLE_API_KEY='ENTER_GOOGLE_API_KEY'
+GOOGLE_API_KEY=''
 genai.configure(api_key=GOOGLE_API_KEY)
 
 instruction = 'You are an AI travel assistant. Plan the trip the user requests delimited by =. Always return the output in json format as tripPlan with the keys name, description, imageUrl, latitude and longitude of the place'
