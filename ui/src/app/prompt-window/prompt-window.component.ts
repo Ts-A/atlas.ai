@@ -31,7 +31,9 @@ export class PromptWindowComponent {
     },
   ];
   public prompt: string = '';
-
+  public chat: Object = {
+    
+  }
   constructor(
     public genAIService: GenerativeAiService,
     public itinerarySvc: ItineraryService,
@@ -52,7 +54,7 @@ export class PromptWindowComponent {
 
     const aiResponse = await this.genAIService.generateJSON(userPrompt.text);
 
-    const jsonResponse = JSON.parse(aiResponse);
+    const jsonResponse =aiResponse ;
 
     const jsonKeys = Object.keys(jsonResponse);
     if (jsonKeys.includes('tripPlan'))

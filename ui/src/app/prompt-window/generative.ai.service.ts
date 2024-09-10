@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import axios from 'axios';
 import {
   GenerativeModel,
   GoogleGenerativeAI,
@@ -12,6 +13,7 @@ import { environment } from '../../environments/environment';
 export class GenerativeAiService {
   public genAI: GoogleGenerativeAI | undefined;
   public model: GenerativeModel | undefined;
+  public chat : any;
   public jsonModel: GenerativeModel | undefined;
   public jsonContext: string =
     'You are an AI travel assistant. Plan the trip the user requests delimited by =. Always return the output in json format as tripPlan with the keys name, description, imageUrl, latitude and longitude of the place';
@@ -22,31 +24,42 @@ export class GenerativeAiService {
     this.jsonModel = this.genAI.getGenerativeModel({
       model: 'gemini-1.5-flash',
       generationConfig: {
-        responseMimeType: 'application/json',
-      },
+        responseMimeType: "application/json",
+       
+      }
     });
+    this.chat =  this.model.startChat({
+      history: [
+        {
+          role: 'user',
+          parts: [{
+            text: this.jsonContext
+          }]
+        }
+      ]
+    });
+
+  
   }
+
 
   public async generateContent(jsonContent: any) {
     if (!this.model) throw new Error('Model not found');
-    const result = await this.model.generateContent(
-      'Use the json and summarise the trip in under 40 words using html tags' +
-        jsonContent
-    );
+    const result = await axios.post('http://localhost:5000/content',{json_content: jsonContent})
+    console.log(result.data);
 
-    console.log(result.response.text());
-
-    return result.response.text();
+    return result.data;
   }
 
   public async generateJSON(prompt: string) {
     try {
       if (!this.jsonModel) throw new Error('Model not found');
-      const result = await this.jsonModel.generateContent(
-        this.jsonContext + '=' + prompt + '='
-      );
-
-      const jsonResponse = result.response.text();
+      if (!this.chat) throw new Error('Chat not found');
+      // const result = await this.jsonModel.generateContent(
+      //   this.jsonContext + '=' + prompt + '='
+      // );
+      let result = await axios.post('http://localhost:5000/chat', {'prompt': prompt})
+      const jsonResponse = result.data;
       console.log(jsonResponse);
       return jsonResponse;
     } catch (error) {
