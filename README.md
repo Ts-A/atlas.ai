@@ -9,7 +9,7 @@ git clone https://github.com/Ts-A/atlas.ai
 
 #Setup backend
 cd atlas.ai/backend
-set your google api key in app.py
+#set your google api key in app.py
 .venv\Scripts\activate
 pip install -r requirements.txt
 flask --app app run
