@@ -3,7 +3,7 @@ import google.generativeai as genai
 
 app = Flask(__name__)
 
-GOOGLE_API_KEY=''
+GOOGLE_API_KEY='' #Enter your google API key
 genai.configure(api_key=GOOGLE_API_KEY)
 
 instruction = 'You are an AI travel assistant. Plan the trip the user requests delimited by =. Always return the output in json format as tripPlan with the keys name, description, imageUrl, latitude and longitude of the place'
@@ -14,9 +14,7 @@ chat = model.start_chat()
 
 @app.route('/chat', methods=['POST'])
 def chat1():
-   # For raw data
-       # If request has JSON body
-    
+
     data = request.json or {}  
 
     user_prompt = data['prompt']
@@ -25,10 +23,8 @@ def chat1():
     res = ''
     for chunk in response:
         res+=chunk.text
-        
-    print(response.text)
     
-    return response.text.strip().removeprefix("```json").removesuffix("```")
+    return res.strip().removeprefix("```json").removesuffix("```")
 
 
 @app.route("/content", methods=["POST"])
@@ -47,4 +43,4 @@ def content1():
     for chunk in res:
         response += chunk.text
 
-    return response.text.strip().removeprefix("```html").removesuffix("```")
+    return response.strip().removeprefix("```html").removesuffix("```")

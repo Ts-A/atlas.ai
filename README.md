@@ -6,6 +6,15 @@ An AI itinerary planner to plan all your trips. Drop in a prompt with the choice
 
 ```bash
 git clone https://github.com/Ts-A/atlas.ai
+
+#Setup backend
+cd atlas.ai/backend
+set your google api key in app.py
+.venv\Scripts\activate
+pip install -r requirements.txt
+flask --app app run
+
+#Setup frontend
 cd atlas.ai/ui
 cp src/environments/environment.sample.ts src/environments/environment.ts
 # Setup env keys
@@ -18,3 +27,5 @@ ng serve
 - angular v18 Standalone
 - @angular/material v18
 - gemini ai
+- python 3.12 
+
