@@ -57,17 +57,23 @@ export class PromptWindowComponent {
     const jsonResponse =aiResponse ;
 
     const jsonKeys = Object.keys(jsonResponse);
-    if (jsonKeys.includes('tripPlan'))
-      this.itinerarySvc.updateItinerary(jsonResponse['tripPlan']);
 
-    let aiSummary = '';
-
-    if (!jsonKeys.includes('description')) {
-      aiSummary = await this.genAIService.generateContent(aiResponse);
-    } else {
-      aiSummary = jsonResponse['description'];
+let aiSummary = '' ;
+    if(!jsonKeys.includes('tripPlan') || jsonResponse['tripPlan'].length == 0){
+      aiSummary = 'Please enter a valid request'
     }
+    else{
+      if (jsonKeys.includes('tripPlan'))
+        this.itinerarySvc.updateItinerary(jsonResponse['tripPlan']);
 
+      if (!jsonKeys.includes('description')) {
+        aiSummary = await this.genAIService.generateContent(aiResponse);
+      } else {
+        aiSummary = jsonResponse['description'];
+      }
+    }
+    
+    
     this.chats.push({
       id: this.chats.length,
       text: aiSummary,
