@@ -5,9 +5,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterOutlet } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { FooterComponent } from './footer/footer.component';
-import { MapContainerComponent } from './map-container/map-container.component';
-import { PromptWindowComponent } from './prompt-window/prompt-window.component';
+import { FooterComponent } from './core/footer/footer.component';
+// import { PromptWindowComponent } from './prompt-window/prompt-window.component';
+import { HeaderComponent } from './core/header/header.component';
+import { LayoutComponent } from './features/itinerary-planner/layout/itinerary-layout.component';
 import { ProgressService } from './shared/services/progress/progress.service';
 
 @Component({
@@ -16,10 +17,9 @@ import { ProgressService } from './shared/services/progress/progress.service';
   imports: [
     RouterOutlet,
     FooterComponent,
-    MapContainerComponent,
-    PromptWindowComponent,
-    MatProgressSpinnerModule,
+    LayoutComponent,
     CommonModule,
+    HeaderComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

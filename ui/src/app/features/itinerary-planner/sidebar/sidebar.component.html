@@ -1,4 +1,4 @@
-<div class="p-container">
+<!-- <div class="">
   <div class="header">Atlas AI</div>
   <app-window [chats]="chats"></app-window>
   <div style="margin: 10px">
@@ -15,4 +15,12 @@
       <button style="width: 100%" mat-flat-button>Run</button>
     </form>
   </div>
-</div>
+</div> -->
+<p-sidebar #sidebarRef styleClass="w-30rem" [(visible)]="sidebarVisible">
+  <ng-template pTemplate="headless"> chat window here </ng-template>
+</p-sidebar>
+<p-button
+  class="sidebar-toggle"
+  (onClick)="sidebarVisible = true"
+  icon="pi pi-align-justify"
+/>
