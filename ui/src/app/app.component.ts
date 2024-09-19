@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -27,9 +32,10 @@ import { ProgressService } from './shared/services/progress/progress.service';
   styleUrl: './app.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AppComponent {
-  public loading: Boolean = true;
+export class AppComponent implements OnInit, OnDestroy {
+  public loading: Boolean | undefined;
   public loadingSubscription: Subscription | undefined;
+
   constructor(public progressSvc: ProgressService) {}
 
   ngOnInit() {
@@ -38,5 +44,9 @@ export class AppComponent {
         this.loading = l;
       }
     );
+  }
+
+  ngOnDestroy() {
+    this.loadingSubscription?.unsubscribe();
   }
 }

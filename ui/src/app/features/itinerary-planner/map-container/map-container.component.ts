@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnDestroy } from '@angular/core';
 import { LeafletModule } from '@bluehalo/ngx-leaflet';
 import {
   Icon,
@@ -13,9 +13,9 @@ import {
 } from 'leaflet';
 import { NgxPlaceholderComponent } from 'ngx-placeholder';
 import { Subscription } from 'rxjs';
-import { Itinerary } from '../../../itinerary/itinerary.interace';
-import { ItineraryService } from '../../../itinerary/itinerary.service';
 import { ProgressService } from '../../../shared/services/progress/progress.service';
+import { Itinerary } from '../itinerary/itinerary.interace';
+import { ItineraryService } from '../itinerary/itinerary.service';
 
 @Component({
   selector: 'app-map-container',
@@ -25,7 +25,7 @@ import { ProgressService } from '../../../shared/services/progress/progress.serv
   styleUrl: './map-container.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class MapContainerComponent {
+export class MapContainerComponent implements OnDestroy {
   public mapZoom: number = 5;
   public mapCenter: LatLng = latLng([21.248422235627014, 77.56347656250001]);
   public mapOptions: MapOptions = {
@@ -76,5 +76,9 @@ export class MapContainerComponent {
     this.layers.push(...markers);
     this.mapZoom = 8;
     this.mapCenter = latLng(markers[0].getLatLng());
+  }
+
+  ngOnDestroy(): void {
+    this.itrSubscription?.unsubscribe();
   }
 }

@@ -7,9 +7,9 @@ import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { SidebarModule } from 'primeng/sidebar';
-import { ItineraryService } from '../../../itinerary/itinerary.service';
-import { GenerativeAiService } from '../../../prompt-window/generative.ai.service';
+import { GenerativeAiService } from '../../../shared/services/gen-ai/gen-ai.service';
 import { ProgressService } from '../../../shared/services/progress/progress.service';
+import { ItineraryService } from '../itinerary/itinerary.service';
 import { ChatWindowComponent } from './chat-window/chat-window.component';
 
 @Component({

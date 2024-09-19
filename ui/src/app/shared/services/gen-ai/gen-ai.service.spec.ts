@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { GenerativeAiService } from './generative.ai.service';
+import { GenerativeAiService } from './gen-ai.service';
 
 describe('GenerativeAiService', () => {
   let service: GenerativeAiService;

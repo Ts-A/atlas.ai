@@ -7,7 +7,12 @@
           : 'flex flex-row-reverse align-items-center'
       "
     >
-      <span class="pi pi-user mx-2"></span><span [innerHTML]="chat.text"></span>
+      <p-avatar
+        [label]="chat.sender === 'ai' ? 'ai' : 'u'"
+        styleClass="mr-2"
+        [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }"
+        shape="circle"
+      /><span [innerHTML]="chat.text"></span>
     </div>
     <p-divider *ngIf="!last" />
   </div>
