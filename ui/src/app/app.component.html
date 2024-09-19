@@ -1,7 +1,7 @@
-<main style="display: flex; flex-direction: row; z-index: 1">
-  <app-prompt-window></app-prompt-window>
-  <app-map-container></app-map-container>
-</main>
+<app-header></app-header>
+<div style="display: contents">
+  <app-itinerary-layout></app-itinerary-layout>
+</div>
 <app-footer></app-footer>
 <ng-container *ngIf="loading">
   <div
@@ -11,10 +11,10 @@
       height: 100%;
       width: 100%;
       position: absolute;
-      z-index: 15;
+      z-index: 500;
     "
   ></div>
-  <div style="position: absolute; top: 40%; left: 45%; z-index: 20">
-    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  <div style="position: absolute; top: 40%; left: 45%; z-index: 501">
+    <p-progressSpinner strokeWidth="4" ariaLabel="loading" />
   </div>
 </ng-container>

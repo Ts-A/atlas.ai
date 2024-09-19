@@ -1,28 +1,34 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {
+  Component,
+  CUSTOM_ELEMENTS_SCHEMA,
+  ViewEncapsulation,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
+import { ButtonModule } from 'primeng/button';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { SidebarModule } from 'primeng/sidebar';
+import { GenerativeAiService } from '../../../shared/services/gen-ai/gen-ai.service';
+import { ProgressService } from '../../../shared/services/progress/progress.service';
 import { ItineraryService } from '../itinerary/itinerary.service';
-import { ProgressService } from '../shared/services/progress/progress.service';
-import { GenerativeAiService } from './generative.ai.service';
-import { WindowComponent } from './window/window.component';
+import { ChatWindowComponent } from './chat-window/chat-window.component';
 
 @Component({
-  selector: 'app-prompt-window',
+  selector: 'app-sidebar',
   standalone: true,
   imports: [
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    WindowComponent,
     FormsModule,
+    ButtonModule,
+    SidebarModule,
+    ChatWindowComponent,
+    InputTextareaModule,
   ],
-  templateUrl: './prompt-window.component.html',
-  styleUrl: './prompt-window.component.scss',
+  templateUrl: './sidebar.component.html',
+  styleUrl: './sidebar.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  encapsulation: ViewEncapsulation.None,
 })
-export class PromptWindowComponent {
+export class SidebarComponent {
+  public sidebarVisible: boolean = true;
   public chats: any[] = [
     {
       id: 1,
@@ -38,9 +44,9 @@ export class PromptWindowComponent {
     public progressSvc: ProgressService
   ) {}
 
-  public async handleFormSubmit(event: any) {
-    event.preventDefault();
+  public async handleFormSubmit() {
     if (this.prompt === '') return;
+    this.sidebarVisible = false;
     this.progressSvc.start();
     const userPrompt = {
       id: this.chats.length,

@@ -1,0 +1,19 @@
+<div class="flex-grow-1 p-2 surface-overlay border-top-2">
+  <div *ngFor="let chat of chats; last as last">
+    <div
+      [ngClass]="
+        chat.sender === 'ai'
+          ? 'flex flex-row align-items-center'
+          : 'flex flex-row-reverse align-items-center'
+      "
+    >
+      <p-avatar
+        [label]="chat.sender === 'ai' ? 'ai' : 'u'"
+        styleClass="mr-2"
+        [style]="{ 'background-color': '#dee9fc', color: '#1a2551' }"
+        shape="circle"
+      /><span [innerHTML]="chat.text"></span>
+    </div>
+    <p-divider *ngIf="!last" />
+  </div>
+</div>

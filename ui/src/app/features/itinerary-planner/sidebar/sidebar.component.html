@@ -1,0 +1,44 @@
+<p-button
+  class="sidebar-toggle"
+  (onClick)="sidebarVisible = true"
+  icon="pi pi-align-justify"
+/>
+<p-sidebar #sidebarRef styleClass="w-30rem" [(visible)]="sidebarVisible">
+  <ng-template pTemplate="headless">
+    <div class="flex flex-column h-full mx-1">
+      <div class="flex w-full p-3">
+        <span class="flex-grow-1 text-center font-semibold"
+          >Chat with Atlas.AI</span
+        ><span
+          class="pi pi-times cursor-pointer"
+          (click)="sidebarVisible = false"
+        ></span>
+      </div>
+      <app-chat-window class="flex-grow-1" [chats]="chats"></app-chat-window>
+      <div class="flex flex-column relative" style="margin: 2px 0">
+        <textarea
+          rows="2"
+          pInputTextarea
+          style="
+            resize: vertical;
+            max-height: 150px;
+            min-height: 50px;
+            padding-right: 30px;
+          "
+          class="border-noround w-full"
+          placeholder="Try searching plan a trip in Manali for 2 days"
+          [(ngModel)]="prompt"
+          name="prompt"
+          [autoResize]="true"
+        ></textarea>
+        <div
+          (click)="handleFormSubmit()"
+          class="absolute bottom-0 right-0 flex align-items-center justify-content-center w-2rem h-2rem"
+          style="z-index: 600; cursor: pointer"
+        >
+          <span class="pi pi-send"></span>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-sidebar>

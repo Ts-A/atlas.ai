@@ -1,0 +1,14 @@
+:host {
+  display: contents;
+}
+
+.sidebar-toggle button {
+  z-index: 403;
+  position: fixed;
+  top: 1%;
+  left: 1%;
+}
+
+::-webkit-resizer {
+  display: none;
+}
