@@ -17,7 +17,27 @@
   </div>
 </div> -->
 <p-sidebar #sidebarRef styleClass="w-30rem" [(visible)]="sidebarVisible">
-  <ng-template pTemplate="headless"> chat window here </ng-template>
+  <ng-template pTemplate="headless">
+    <div class="flex flex-column h-full mx-1">
+      <div class="flex w-full p-3">
+        <span class="flex-grow-1 text-center font-semibold"
+          >Chat with Atlas.AI</span
+        ><span
+          class="pi pi-times cursor-pointer"
+          (click)="sidebarVisible = false"
+        ></span>
+      </div>
+      <app-chat-window class="flex-grow-1" [chats]="chats"></app-chat-window>
+      <textarea
+        rows="5"
+        pInputTextarea
+        style="resize: none"
+        class="border-noround"
+        placeholder="Try searching plan a trip in Manali for 2 days"
+      ></textarea>
+      <p-button styleClass="block w-full border-noround my-1">Send</p-button>
+    </div>
+  </ng-template>
 </p-sidebar>
 <p-button
   class="sidebar-toggle"

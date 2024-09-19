@@ -1,12 +1,13 @@
 import {
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
-  Input,
   ViewEncapsulation,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 import { SidebarModule } from 'primeng/sidebar';
+import { ChatWindowComponent } from './chat-window/chat-window.component';
 // import { ItineraryService } from '../itinerary/itinerary.service';
 // import { ProgressService } from '../shared/services/progress/progress.service';
 // import { GenerativeAiService } from './generative.ai.service';
@@ -15,17 +16,33 @@ import { SidebarModule } from 'primeng/sidebar';
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [FormsModule, ButtonModule, SidebarModule],
+  imports: [
+    FormsModule,
+    ButtonModule,
+    SidebarModule,
+    ChatWindowComponent,
+    InputTextareaModule,
+  ],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   encapsulation: ViewEncapsulation.None,
 })
 export class SidebarComponent {
-  @Input() public sidebarVisible: boolean = false;
+  public sidebarVisible: boolean = true;
   public chats: any[] = [
     {
       id: 1,
+      text: "Welcome to atlas.ai! I'm your personal AI travel assistant. How can I help you plan your next travel destination?",
+      sender: 'ai',
+    },
+    {
+      id: 2,
+      text: "Welcome to atlas.ai! I'm your personal AI travel assistant. How can I help you plan your next travel destination?",
+      sender: 'user',
+    },
+    {
+      id: 3,
       text: "Welcome to atlas.ai! I'm your personal AI travel assistant. How can I help you plan your next travel destination?",
       sender: 'ai',
     },

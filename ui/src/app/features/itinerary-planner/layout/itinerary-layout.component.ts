@@ -10,6 +10,4 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
   templateUrl: './itinerary-layout.component.html',
   styleUrl: './itinerary-layout.component.scss',
 })
-export class LayoutComponent {
-  public sidebarVisible: boolean = false;
-}
+export class LayoutComponent {}
