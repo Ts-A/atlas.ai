@@ -28,20 +28,10 @@ import { ChatWindowComponent } from './chat-window/chat-window.component';
   encapsulation: ViewEncapsulation.None,
 })
 export class SidebarComponent {
-  public sidebarVisible: boolean = false;
+  public sidebarVisible: boolean = true;
   public chats: any[] = [
     {
       id: 1,
-      text: "Welcome to atlas.ai! I'm your personal AI travel assistant. How can I help you plan your next travel destination?",
-      sender: 'ai',
-    },
-    {
-      id: 2,
-      text: "Welcome to atlas.ai! I'm your personal AI travel assistant. How can I help you plan your next travel destination?",
-      sender: 'user',
-    },
-    {
-      id: 3,
       text: "Welcome to atlas.ai! I'm your personal AI travel assistant. How can I help you plan your next travel destination?",
       sender: 'ai',
     },

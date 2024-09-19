@@ -15,20 +15,28 @@
         ></span>
       </div>
       <app-chat-window class="flex-grow-1" [chats]="chats"></app-chat-window>
-      <textarea
-        rows="5"
-        pInputTextarea
-        style="resize: none"
-        class="border-noround"
-        placeholder="Try searching plan a trip in Manali for 2 days"
-        [(ngModel)]="prompt"
-        name="prompt"
-      ></textarea>
-      <p-button
-        (onClick)="handleFormSubmit($event)"
-        styleClass="block w-full border-noround my-1"
-        >Send</p-button
-      >
+      <div class="flex flex-column relative" style="margin: 2px 0">
+        <textarea
+          rows="2"
+          pInputTextarea
+          style="
+            resize: vertical;
+            max-height: 150px;
+            min-height: 50px;
+            padding-right: 30px;
+          "
+          class="border-noround w-full"
+          placeholder="Try searching plan a trip in Manali for 2 days"
+          [(ngModel)]="prompt"
+          name="prompt"
+          [autoResize]="true"
+        ></textarea>
+        <div
+          class="absolute bottom-0 right-0 flex align-items-center justify-content-center w-2rem h-2rem"
+        >
+          <span (onClick)="handleFormSubmit($event)" class="pi pi-send"></span>
+        </div>
+      </div>
     </div>
   </ng-template>
 </p-sidebar>
