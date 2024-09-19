@@ -7,11 +7,10 @@ import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { SidebarModule } from 'primeng/sidebar';
+import { ItineraryService } from '../../../itinerary/itinerary.service';
+import { GenerativeAiService } from '../../../prompt-window/generative.ai.service';
+import { ProgressService } from '../../../shared/services/progress/progress.service';
 import { ChatWindowComponent } from './chat-window/chat-window.component';
-// import { ItineraryService } from '../itinerary/itinerary.service';
-// import { ProgressService } from '../shared/services/progress/progress.service';
-// import { GenerativeAiService } from './generative.ai.service';
-// import { WindowComponent } from './window/window.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -29,7 +28,7 @@ import { ChatWindowComponent } from './chat-window/chat-window.component';
   encapsulation: ViewEncapsulation.None,
 })
 export class SidebarComponent {
-  public sidebarVisible: boolean = true;
+  public sidebarVisible: boolean = false;
   public chats: any[] = [
     {
       id: 1,
@@ -49,45 +48,46 @@ export class SidebarComponent {
   ];
   public prompt: string = '';
 
-  // constructor(
-  //   public genAIService: GenerativeAiService,
-  //   public itinerarySvc: ItineraryService,
-  //   public progressSvc: ProgressService
-  // ) {}
+  constructor(
+    public genAIService: GenerativeAiService,
+    public itinerarySvc: ItineraryService,
+    public progressSvc: ProgressService
+  ) {}
 
-  // public async handleFormSubmit(event: any) {
-  //   event.preventDefault();
-  //   if (this.prompt === '') return;
-  //   this.progressSvc.start();
-  //   const userPrompt = {
-  //     id: this.chats.length,
-  //     text: this.prompt,
-  //     sender: 'user',
-  //   };
-  //   this.prompt = '';
-  //   this.chats.push(userPrompt);
+  public async handleFormSubmit(event: any) {
+    event.preventDefault();
+    if (this.prompt === '') return;
+    this.sidebarVisible = false;
+    this.progressSvc.start();
+    const userPrompt = {
+      id: this.chats.length,
+      text: this.prompt,
+      sender: 'user',
+    };
+    this.prompt = '';
+    this.chats.push(userPrompt);
 
-  //   const aiResponse = await this.genAIService.generateJSON(userPrompt.text);
+    const aiResponse = await this.genAIService.generateJSON(userPrompt.text);
 
-  //   const jsonResponse = JSON.parse(aiResponse);
+    const jsonResponse = JSON.parse(aiResponse);
 
-  //   const jsonKeys = Object.keys(jsonResponse);
-  //   if (jsonKeys.includes('tripPlan'))
-  //     this.itinerarySvc.updateItinerary(jsonResponse['tripPlan']);
+    const jsonKeys = Object.keys(jsonResponse);
+    if (jsonKeys.includes('tripPlan'))
+      this.itinerarySvc.updateItinerary(jsonResponse['tripPlan']);
 
-  //   let aiSummary = '';
+    let aiSummary = '';
 
-  //   if (!jsonKeys.includes('description')) {
-  //     aiSummary = await this.genAIService.generateContent(aiResponse);
-  //   } else {
-  //     aiSummary = jsonResponse['description'];
-  //   }
+    if (!jsonKeys.includes('description')) {
+      aiSummary = await this.genAIService.generateContent(aiResponse);
+    } else {
+      aiSummary = jsonResponse['description'];
+    }
 
-  //   this.chats.push({
-  //     id: this.chats.length,
-  //     text: aiSummary,
-  //     sender: 'ai',
-  //   });
-  //   this.progressSvc.stop();
-  // }
+    this.chats.push({
+      id: this.chats.length,
+      text: aiSummary,
+      sender: 'ai',
+    });
+    this.progressSvc.stop();
+  }
 }

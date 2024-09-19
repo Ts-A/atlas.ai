@@ -7,6 +7,7 @@ import { RouterOutlet } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { FooterComponent } from './core/footer/footer.component';
 // import { PromptWindowComponent } from './prompt-window/prompt-window.component';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { HeaderComponent } from './core/header/header.component';
 import { LayoutComponent } from './features/itinerary-planner/layout/itinerary-layout.component';
 import { ProgressService } from './shared/services/progress/progress.service';
@@ -20,6 +21,7 @@ import { ProgressService } from './shared/services/progress/progress.service';
     LayoutComponent,
     CommonModule,
     HeaderComponent,
+    ProgressSpinnerModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

@@ -1,21 +1,8 @@
-<!-- <div class="">
-  <div class="header">Atlas AI</div>
-  <app-window [chats]="chats"></app-window>
-  <div style="margin: 10px">
-    <form style="display: contents" (submit)="handleFormSubmit($event)">
-      <mat-form-field style="width: 100%">
-        <textarea
-          matInput
-          placeholder="Prepare a travel itinerary from xyz to xyz"
-          rows="4"
-          [(ngModel)]="prompt"
-          name="prompt"
-        ></textarea>
-      </mat-form-field>
-      <button style="width: 100%" mat-flat-button>Run</button>
-    </form>
-  </div>
-</div> -->
+<p-button
+  class="sidebar-toggle"
+  (onClick)="sidebarVisible = true"
+  icon="pi pi-align-justify"
+/>
 <p-sidebar #sidebarRef styleClass="w-30rem" [(visible)]="sidebarVisible">
   <ng-template pTemplate="headless">
     <div class="flex flex-column h-full mx-1">
@@ -34,13 +21,14 @@
         style="resize: none"
         class="border-noround"
         placeholder="Try searching plan a trip in Manali for 2 days"
+        [(ngModel)]="prompt"
+        name="prompt"
       ></textarea>
-      <p-button styleClass="block w-full border-noround my-1">Send</p-button>
+      <p-button
+        (onClick)="handleFormSubmit($event)"
+        styleClass="block w-full border-noround my-1"
+        >Send</p-button
+      >
     </div>
   </ng-template>
 </p-sidebar>
-<p-button
-  class="sidebar-toggle"
-  (onClick)="sidebarVisible = true"
-  icon="pi pi-align-justify"
-/>

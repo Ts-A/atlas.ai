@@ -15,6 +15,7 @@ import { NgxPlaceholderComponent } from 'ngx-placeholder';
 import { Subscription } from 'rxjs';
 import { Itinerary } from '../../../itinerary/itinerary.interace';
 import { ItineraryService } from '../../../itinerary/itinerary.service';
+import { ProgressService } from '../../../shared/services/progress/progress.service';
 
 @Component({
   selector: 'app-map-container',
@@ -41,17 +42,18 @@ export class MapContainerComponent {
   public initialLoad: boolean = true;
 
   constructor(
-    public itinerarySvc: ItineraryService // public progressSvc: ProgressService
+    public itinerarySvc: ItineraryService,
+    public progressSvc: ProgressService
   ) {}
 
   public onMapReady(map: Map) {
-    // this.progressSvc.stop();
     map.zoomControl.setPosition('topright');
     this.itrSubscription = this.itinerarySvc.itrSubject.subscribe(
       (itr: any) => {
         this.itinerary = itr;
         if (!this.initialLoad) this.updateMap();
         this.initialLoad = false;
+        this.progressSvc.stop();
       }
     );
   }

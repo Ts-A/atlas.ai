@@ -3,7 +3,7 @@
   <app-itinerary-layout></app-itinerary-layout>
 </div>
 <app-footer></app-footer>
-<!-- <ng-container *ngIf="loading">
+<ng-container *ngIf="loading">
   <div
     style="
       background-color: black;
@@ -11,10 +11,10 @@
       height: 100%;
       width: 100%;
       position: absolute;
-      z-index: 15;
+      z-index: 500;
     "
   ></div>
-  <div style="position: absolute; top: 40%; left: 45%; z-index: 20">
-    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  <div style="position: absolute; top: 40%; left: 45%; z-index: 501">
+    <p-progressSpinner ariaLabel="loading" />
   </div>
-</ng-container> -->
+</ng-container>
