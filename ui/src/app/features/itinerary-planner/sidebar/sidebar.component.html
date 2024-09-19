@@ -32,9 +32,11 @@
           [autoResize]="true"
         ></textarea>
         <div
+          (click)="handleFormSubmit()"
           class="absolute bottom-0 right-0 flex align-items-center justify-content-center w-2rem h-2rem"
+          style="z-index: 600; cursor: pointer"
         >
-          <span (onClick)="handleFormSubmit($event)" class="pi pi-send"></span>
+          <span class="pi pi-send"></span>
         </div>
       </div>
     </div>

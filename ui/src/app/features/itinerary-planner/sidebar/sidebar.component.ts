@@ -44,8 +44,7 @@ export class SidebarComponent {
     public progressSvc: ProgressService
   ) {}
 
-  public async handleFormSubmit(event: any) {
-    event.preventDefault();
+  public async handleFormSubmit() {
     if (this.prompt === '') return;
     this.sidebarVisible = false;
     this.progressSvc.start();
