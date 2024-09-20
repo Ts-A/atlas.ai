@@ -58,20 +58,30 @@ export class SidebarComponent {
 
     const aiResponse = await this.genAIService.generateJSON(userPrompt.text);
 
-    const jsonResponse = JSON.parse(aiResponse);
+    const jsonResponse =aiResponse;
 
     const jsonKeys = Object.keys(jsonResponse);
+    let aiSummary = '';
+    if(!jsonKeys.includes('tripPlan')){
+aiSummary = aiResponse
+    }
+    else if(jsonResponse['tripPlan'].length == 0){
+      aiSummary = 'Could not find places'
+    }
+    else{
+
+    
     if (jsonKeys.includes('tripPlan'))
       this.itinerarySvc.updateItinerary(jsonResponse['tripPlan']);
 
-    let aiSummary = '';
+    
 
     if (!jsonKeys.includes('description')) {
       aiSummary = await this.genAIService.generateContent(aiResponse);
     } else {
       aiSummary = jsonResponse['description'];
     }
-
+  }
     this.chats.push({
       id: this.chats.length,
       text: aiSummary,
