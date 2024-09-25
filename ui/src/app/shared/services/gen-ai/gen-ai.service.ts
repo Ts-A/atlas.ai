@@ -41,7 +41,7 @@ export class GenerativeAiService {
   public async generateContent(jsonContent: any) {
     if (!this.model) throw new Error('Model not found');
 
-    const result = await axios.post('http://localhost:5000/content',{json_content: jsonContent})
+    const result = await axios.post('https://atlas-ai-modelling.vercel.app/content',{json_content: jsonContent})
     console.log(result.data);
 
     return result.data;
@@ -51,7 +51,7 @@ export class GenerativeAiService {
     try {
       if (!this.jsonModel) throw new Error('Model not found');
       if (!this.chat) throw new Error('Chat not found');
-      let result = await axios.post('http://localhost:5000/chat', {'prompt': prompt})
+      let result = await axios.post('https://atlas-ai-modelling.vercel.app/chat', {'prompt': prompt})
       const jsonResponse = result.data;
       console.log(jsonResponse);
       return jsonResponse;
