@@ -5,7 +5,7 @@ import {
   SchemaType,
 } from '@google/generative-ai';
 import { environment } from '../../../../environments/environment';
-
+import axios from 'axios';
 @Injectable({
   providedIn: 'root',
 })
@@ -13,6 +13,7 @@ export class GenerativeAiService {
   public genAI: GoogleGenerativeAI | undefined;
   public model: GenerativeModel | undefined;
   public jsonModel: GenerativeModel | undefined;
+  public chat : any;
   public jsonContext: string =
     'You are an AI travel assistant. Plan the trip the user requests delimited by =. Always return the output in json format as tripPlan with the keys name, description, imageUrl, latitude and longitude of the place';
 
@@ -25,28 +26,33 @@ export class GenerativeAiService {
         responseMimeType: 'application/json',
       },
     });
+    this.chat =  this.model.startChat({
+      history: [
+        {
+          role: 'user',
+          parts: [{
+            text: this.jsonContext
+          }]
+        }
+      ]
+    });
   }
 
   public async generateContent(jsonContent: any) {
     if (!this.model) throw new Error('Model not found');
-    const result = await this.model.generateContent(
-      'Use the json and summarise the trip in under 40 words using html tags' +
-        jsonContent
-    );
 
-    console.log(result.response.text());
+    const result = await axios.post('https://atlas-ai-modelling.vercel.app/content',{json_content: jsonContent})
+    console.log(result.data);
 
-    return result.response.text();
+    return result.data;
   }
 
   public async generateJSON(prompt: string) {
     try {
       if (!this.jsonModel) throw new Error('Model not found');
-      const result = await this.jsonModel.generateContent(
-        this.jsonContext + '=' + prompt + '='
-      );
-
-      const jsonResponse = result.response.text();
+      if (!this.chat) throw new Error('Chat not found');
+      let result = await axios.post('https://atlas-ai-modelling.vercel.app/chat', {'prompt': prompt})
+      const jsonResponse = result.data;
       console.log(jsonResponse);
       return jsonResponse;
     } catch (error) {
